@@ -1,0 +1,21 @@
+{
+    "name": "Beerstrum/MoodyMatrix",
+    "type": "library",
+    "description": "TODO",
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*"
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Beerstrum\\MoodyMatrix\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Beerstrum\\MoodyMatrix\\Tests\\": "tests/"
+        }
+    }
+}
