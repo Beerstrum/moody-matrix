@@ -2,8 +2,13 @@
 
 namespace Beerstrum\MoodyMatrix;
 
+use Beerstrum\MoodyMatrix\Traits\SimpleSingleton;
 
 class Config {
+    use SimpleSingleton;
+
+    const BIT_COUNT = 64;
+
     const UP      = 0b0000000000000001;
     const UP_MASK = 0b1111111111111111;
 
@@ -20,4 +25,24 @@ class Config {
     const WIDTH      = 256;
     const DIMENSIONS = 2;
     const DIRECTIONS = 4;
+
+    /**
+     * @param $input int A cell direction value in the range of a direction.  Can be any binary in the bits given to that direction.
+     *
+     * @return string Label for that direction.
+     */
+    public function direction_label($input) {
+
+        if (self::UP_MASK & $input) {
+            return 'UP';
+        } else if (self::RIGHT_MASK & $input) {
+            return 'RIGHT';
+        } else if (self::DOWN_MASK & $input) {
+            return 'DOWN';
+        } else if (self::LEFT_MASK & $input) {
+            return 'LEFT';
+        } else {
+            return 'UNKNOWN';
+        }
+    }
 }
