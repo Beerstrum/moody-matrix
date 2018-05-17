@@ -13,16 +13,33 @@ use Beerstrum\MoodyMatrix\Config;
 
 class TestAbstract extends \PHPUnit_Framework_TestCase {
 
-    public $tests_root_dir;
-
-    public function setUp() {
-        $this->tests_root_dir = getcwd().'/tests/';
-    }
-
     public function assert_cell_values($expected, $actual) {
         $config      = Config::init();
         $test_string = 'Expected:'.$config->direction_label($expected).' Actual:'.$config->direction_label($actual);
 
         $this->assertEquals($expected, $actual, $test_string);
+    }
+
+    /**
+     * @param string $fixture_file_name
+     *
+     * @return mixed
+     */
+    public function get_fixture($fixture_file_name) {
+        $path = getcwd().'/tests/Fixtures/'.$fixture_file_name;
+
+        return unserialize(gzuncompress(file_get_contents($path)));
+    }
+
+    /**
+     * @param string $fixture_file_name
+     * @param mixed  $data
+     *
+     * @return bool|int
+     */
+    public function set_fixture($fixture_file_name, $data) {
+        $path = getcwd().'/tests/Fixtures/'.$fixture_file_name;
+
+        return file_put_contents($path, gzcompress(serialize($data)));
     }
 }

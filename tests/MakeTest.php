@@ -10,11 +10,15 @@
 namespace Beerstrum\MoodyMatrix\Tests;
 
 
+use Beerstrum\MoodyMatrix\CellMaker\Random;
 use Beerstrum\MoodyMatrix\Config;
 use Beerstrum\MoodyMatrix\Make;
 
 class MakeTest extends TestAbstract {
 
+    /**
+     * @group unit
+     */
     public function test_make_with_static_input() {
         $mock = $this->getMockBuilder('\Beerstrum\MoodyMatrix\CellMaker\Fixed')
             ->disableOriginalConstructor()
@@ -27,8 +31,22 @@ class MakeTest extends TestAbstract {
         $maker->build_new();
         $output = $maker->get_matrix();
 
-        //TODO: Make this a method in TestAbstract
-        $expected = unserialize(gzuncompress(file_get_contents($this->tests_root_dir.'Fixtures/MatrixAllLeft.gzraw')));
+        $expected = $this->get_fixture('MatrixAllLeft.gzraw');
+
+        $this->assertEquals($expected, $output);
+    }
+
+    /**
+     * @group functional
+     */
+    public function test_make_random_functional() {
+        $cell_maker = new Random(123456);
+        $maker      = new Make($cell_maker);
+
+        $maker->build_new();
+
+        $output   = $maker->get_matrix();
+        $expected = $this->get_fixture('MatrixRandomS123456.gzraw');
 
         $this->assertEquals($expected, $output);
     }

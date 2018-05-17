@@ -16,6 +16,9 @@ class Make {
         $this->cell_maker = $cell_maker;
     }
 
+    /**
+     * Creates a new matrix by the passed in CellMaker object.
+     */
     public function build_new() {
         for ($h = 0; $h < Config::HEIGHT; $h++) {
 
@@ -24,13 +27,9 @@ class Make {
             }
 
             for ($w = 0; $w < Config::WIDTH; $w++) {
-                $this->populate_cell($h, $w);
+                $this->matrix[$h][$w] = $this->cell_maker->get_next_direction();
             }
         }
-    }
-
-    protected function populate_cell($h, $w) {
-        $this->matrix[$h][$w] = $this->cell_maker->get_next_direction();
     }
 
     /**
