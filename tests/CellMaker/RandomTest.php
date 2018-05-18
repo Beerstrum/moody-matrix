@@ -10,7 +10,7 @@
 namespace Beerstrum\MoodyMatrix\Tests\CellMaker;
 
 use Beerstrum\MoodyMatrix\CellMaker\Random;
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Tests\TestAbstract;
 
 class RandomTest extends TestAbstract {
@@ -19,14 +19,14 @@ class RandomTest extends TestAbstract {
         $object = new Random(123456789);
 
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::LEFT, $output);
+        $this->assert_cell_values(Facts64::LEFT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::LEFT, $output);
+        $this->assert_cell_values(Facts64::LEFT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::LEFT, $output);
+        $this->assert_cell_values(Facts64::LEFT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::RIGHT, $output);
+        $this->assert_cell_values(Facts64::RIGHT, $output);
     }
 }

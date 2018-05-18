@@ -10,7 +10,7 @@
 namespace Beerstrum\MoodyMatrix\CellMaker;
 
 
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Interfaces\CellMakerInterface;
 
 class Fixed implements CellMakerInterface {
@@ -21,11 +21,11 @@ class Fixed implements CellMakerInterface {
      * Fixed constructor.
      *
      * Accepts an argument that is blindly returned for each cell.  Note: No validation is done here.
-     * Should be one of config direction values: [UP | RIGHT | DOWN | LEFT]
+     * Should be one of Facts direction values: [UP | RIGHT | DOWN | LEFT]
      *
      * @param int $input
      */
-    public function __construct($input = Config::UP) {
+    public function __construct($input = Facts64::UP) {
         $this->output = $input;
     }
 

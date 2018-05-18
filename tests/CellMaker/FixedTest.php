@@ -11,19 +11,19 @@ namespace Beerstrum\MoodyMatrix\Tests\CellMaker;
 
 
 use Beerstrum\MoodyMatrix\CellMaker\Fixed;
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Tests\TestAbstract;
 
 class FixedTest extends TestAbstract {
 
     public function test_static_output() {
-        $object = new Fixed(Config::DOWN);
+        $object = new Fixed(Facts64::DOWN);
 
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
     }
 }

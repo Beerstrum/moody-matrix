@@ -11,43 +11,45 @@ namespace Beerstrum\MoodyMatrix\Tests;
 
 
 use Beerstrum\MoodyMatrix\CellMaker\Random;
+use Beerstrum\MoodyMatrix\CellMaker\RoundRobin;
 use Beerstrum\MoodyMatrix\Config;
-use Beerstrum\MoodyMatrix\Make;
+use Beerstrum\MoodyMatrix\Facts64;
+use Beerstrum\MoodyMatrix\MatrixMaker;
 
 class MakeTest extends TestAbstract {
-
-    /**
-     * @group unit
-     */
-    public function test_make_with_static_input() {
-        $mock = $this->getMockBuilder('\Beerstrum\MoodyMatrix\CellMaker\Fixed')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mock->method('get_next_direction')
-            ->willReturn(Config::LEFT);
-
-        $maker = new Make($mock);
-        $maker->build_new();
-        $output = $maker->get_matrix();
-
-        $expected = $this->get_fixture('MatrixAllLeft.gzraw');
-
-        $this->assertEquals($expected, $output);
-    }
 
     /**
      * @group functional
      */
     public function test_make_random_functional() {
         $cell_maker = new Random(123456);
-        $maker      = new Make($cell_maker);
+        $maker      = new MatrixMaker($cell_maker);
 
-        $maker->build_new();
+        $config = Config::init()
+            ->set_height(48)
+            ->set_width(48);
 
-        $output   = $maker->get_matrix();
+        $matrix = $maker->build_new($config);
+
+        //$this->set_fixture('MatrixRandomS123456.gzraw', $matrix->get_raw_matrix_data());
         $expected = $this->get_fixture('MatrixRandomS123456.gzraw');
 
-        $this->assertEquals($expected, $output);
+        $this->assertEquals($expected, $matrix->get_raw_matrix_data());
+    }
+
+    public function test_make_round_robin_functional() {
+        $cell_maker = new RoundRobin(Facts64::DOWN, RoundRobin::CLOCKWISE);
+        $maker      = new MatrixMaker($cell_maker);
+
+        $config = Config::init()
+            ->set_height(48)
+            ->set_width(48);
+
+        $matrix = $maker->build_new($config);
+
+        //$this->set_fixture('MatrixRoundRobinDClockwise.gzraw', $matrix->get_raw_matrix_data());
+        $expected = $this->get_fixture('MatrixRoundRobinDClockwise.gzraw');
+
+        $this->assertEquals($expected, $matrix->get_raw_matrix_data());
     }
 }

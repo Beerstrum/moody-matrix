@@ -11,38 +11,38 @@ namespace Beerstrum\MoodyMatrix\Tests\CellMaker;
 
 
 use Beerstrum\MoodyMatrix\CellMaker\RoundRobin;
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Tests\TestAbstract;
 
 class RoundRobinTest extends TestAbstract {
 
     public function test_clockwise() {
-        $object = new RoundRobin(Config::DOWN, RoundRobin::CLOCKWISE);
+        $object = new RoundRobin(Facts64::DOWN, RoundRobin::CLOCKWISE);
 
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::LEFT, $output);
+        $this->assert_cell_values(Facts64::LEFT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::UP, $output);
+        $this->assert_cell_values(Facts64::UP, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::RIGHT, $output);
+        $this->assert_cell_values(Facts64::RIGHT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
     }
 
     public function test_counterclockwise() {
-        $object = new RoundRobin(Config::DOWN, RoundRobin::COUNTERCLOCKWISE);
+        $object = new RoundRobin(Facts64::DOWN, RoundRobin::COUNTERCLOCKWISE);
 
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::RIGHT, $output);
+        $this->assert_cell_values(Facts64::RIGHT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::UP, $output);
+        $this->assert_cell_values(Facts64::UP, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::LEFT, $output);
+        $this->assert_cell_values(Facts64::LEFT, $output);
         $output = $object->get_next_direction();
-        $this->assert_cell_values(Config::DOWN, $output);
+        $this->assert_cell_values(Facts64::DOWN, $output);
     }
 }

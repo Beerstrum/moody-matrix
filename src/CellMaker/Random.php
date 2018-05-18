@@ -9,7 +9,7 @@
 
 namespace Beerstrum\MoodyMatrix\CellMaker;
 
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Interfaces\CellMakerInterface;
 
 class Random implements CellMakerInterface {
@@ -17,7 +17,7 @@ class Random implements CellMakerInterface {
     protected $random_source;
 
     /** @var array $steps_array */
-    protected $steps_array = [Config::UP, Config::RIGHT, Config::DOWN, Config::LEFT];
+    protected $steps_array = [Facts64::UP, Facts64::RIGHT, Facts64::DOWN, Facts64::LEFT];
 
     public function __construct($seed = null) {
 
@@ -37,7 +37,7 @@ class Random implements CellMakerInterface {
             $this->random_source = mt_rand(1, PHP_INT_MAX);
         }
 
-        $roll                = $this->random_source % Config::DIRECTIONS;
+        $roll                = $this->random_source % Facts64::DIRECTIONS;
         $this->random_source = $this->random_source >> 1;
 
         if (!isset($this->steps_array[$roll])) {

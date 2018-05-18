@@ -1,48 +1,80 @@
 <?php
+/**
+ * Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
 
 namespace Beerstrum\MoodyMatrix;
 
-use Beerstrum\MoodyMatrix\Traits\SimpleSingleton;
+
+use Beerstrum\MoodyMatrix\Interfaces\MutationInterface;
 
 class Config {
-    use SimpleSingleton;
 
-    const BIT_COUNT = 64;
+    protected $height = 256;
+    protected $width  = 256;
 
-    const UP      = 0b0000000000000001;
-    const UP_MASK = 0b1111111111111111;
-
-    const RIGHT      = 0b00000000000000010000000000000000;
-    const RIGHT_MASK = 0b11111111111111110000000000000000;
-
-    const DOWN      = 0b000000000000000100000000000000000000000000000000;
-    const DOWN_MASK = 0b111111111111111100000000000000000000000000000000;
-
-    const LEFT      = 0b0000000000000001000000000000000000000000000000000000000000000000;
-    const LEFT_MASK = 0b1111111111111111000000000000000000000000000000000000000000000000;
-
-    const HEIGHT     = 256;
-    const WIDTH      = 256;
-    const DIMENSIONS = 2;
-    const DIRECTIONS = 4;
+    /** @var MutationInterface $mutator */
+    protected $mutator = null;
 
     /**
-     * @param $input int A cell direction value in the range of a direction.  Can be any binary in the bits given to that direction.
+     * @param int $height
      *
-     * @return string Label for that direction.
+     * @return Config
      */
-    public function direction_label($input) {
+    public function set_height($height) {
+        $this->height = (int)$height;
 
-        if (self::UP_MASK & $input) {
-            return 'UP';
-        } else if (self::RIGHT_MASK & $input) {
-            return 'RIGHT';
-        } else if (self::DOWN_MASK & $input) {
-            return 'DOWN';
-        } else if (self::LEFT_MASK & $input) {
-            return 'LEFT';
-        } else {
-            return 'UNKNOWN';
-        }
+        return $this;
+    }
+
+    /**
+     * @param int $width
+     *
+     * @return Config
+     */
+    public function set_width($width) {
+        $this->width = (int)$width;
+
+        return $this;
+    }
+
+    /**
+     * @param MutationInterface $mutator
+     *
+     * @return Config
+     */
+    public function set_mutator(MutationInterface $mutator) {
+        $this->mutator = $mutator;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function get_height() {
+        return $this->height;
+    }
+
+    /**
+     * @return int
+     */
+    public function get_width() {
+        return $this->width;
+    }
+
+    /**
+     * @return MutationInterface
+     */
+    public function get_mutator() {
+        return $this->mutator;
+    }
+
+    public static function init() {
+        return new self;
     }
 }

@@ -10,7 +10,7 @@
 namespace Beerstrum\MoodyMatrix\CellMaker;
 
 
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 use Beerstrum\MoodyMatrix\Interfaces\CellMakerInterface;
 
 class RoundRobin implements CellMakerInterface {
@@ -24,7 +24,7 @@ class RoundRobin implements CellMakerInterface {
     /** @var int $step_key */
     protected $step_key;
     /** @var array $steps_array */
-    protected $steps_array = [Config::UP, Config::RIGHT, Config::DOWN, Config::LEFT];
+    protected $steps_array = [Facts64::UP, Facts64::RIGHT, Facts64::DOWN, Facts64::LEFT];
 
     /** @var int $state */
     protected $state;
@@ -32,12 +32,12 @@ class RoundRobin implements CellMakerInterface {
     /**
      * RoundRobin constructor.
      *
-     * @param int $starting_cell_value Starting value for the round robin source.  Should be a Config const direction. [UP | RIGHT | DOWN | LEFT]
+     * @param int $starting_cell_value Starting value for the round robin source.  Should be a Facts64 const direction. [UP | RIGHT | DOWN | LEFT]
      * @param int $direction           Which direction around are we going? [CLOCKWISE | COUNTERCLOCKWISE]
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($starting_cell_value = Config::UP, $direction = self::CLOCKWISE) {
+    public function __construct($starting_cell_value = Facts64::UP, $direction = self::CLOCKWISE) {
         $this->state     = $starting_cell_value;
         $this->direction = $direction;
 
@@ -55,11 +55,11 @@ class RoundRobin implements CellMakerInterface {
         $output = $this->state;
 
         if ($this->direction > 0) {
-            $this->step_key = ($this->step_key + 1) % Config::DIRECTIONS;
+            $this->step_key = ($this->step_key + 1) % Facts64::DIRECTIONS;
         } else {
 
             if (--$this->step_key < 0) {
-                $this->step_key = Config::DIRECTIONS - 1;
+                $this->step_key = Facts64::DIRECTIONS - 1;
             }
         }
 

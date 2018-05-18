@@ -9,12 +9,12 @@
 
 namespace Beerstrum\MoodyMatrix\Tests;
 
-use Beerstrum\MoodyMatrix\Config;
+use Beerstrum\MoodyMatrix\Facts64;
 
 class TestAbstract extends \PHPUnit_Framework_TestCase {
 
     public function assert_cell_values($expected, $actual) {
-        $config      = Config::init();
+        $config      = Facts64::init();
         $test_string = 'Expected:'.$config->direction_label($expected).' Actual:'.$config->direction_label($actual);
 
         $this->assertEquals($expected, $actual, $test_string);
